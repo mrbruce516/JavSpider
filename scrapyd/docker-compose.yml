@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+  gerapy:
+    image: germey/gerapy
+    ports:
+      - "8001:8000"
+    volumes:
+      - ./gerapy:/app/gerapy
+
+  scrapyd:
+    image: scrapyd
+

@@ -1,0 +1,4 @@
+itemadapter==0.8.0
+pandas==2.2.0
+Scrapy==2.11.1
+selenium==4.18.1
