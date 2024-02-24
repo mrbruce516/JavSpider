@@ -117,8 +117,15 @@ class SeleniumMiddleware(object):
         if re.search(r'[A-Z]+-[0-9]+', url):
             options = webdriver.ChromeOptions()
             options.add_argument('--headless=new')
+            options.add_argument('--disable-gpu')
+            options.add_argument('--no-sandbox')
+            options.add_argument('--disable-dev-shm-usage')
+            options.add_argument("--accept-lang=zh-CN,zh-Hans;q=0.9")
             driver = webdriver.Chrome(options=options)
             driver.get(url)
+            driver.add_cookie({'name': 'age', 'value': 'verified'})
+            driver.add_cookie({'name': 'PHPSESSID', 'value': 'nivm5b266b44pvp5u9m03lson7'})
+            driver.add_cookie({'name': 'existmag', 'value': 'mag'})
             time.sleep(3)
             data = driver.page_source
             # 创建响应对象

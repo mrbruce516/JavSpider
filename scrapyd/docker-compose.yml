@@ -2,12 +2,16 @@ version: "3"
 
 services:
   gerapy:
-    image: germey/gerapy
+    image: germey/gerapy:0.9.12
     ports:
       - "8001:8000"
     volumes:
-      - ./gerapy:/app/gerapy
+      - ./gerapy/projects:/app/projects
+      - ./gerapy/logs:/app/logs
+      - ./gerapy/dbs:/app/dbs
 
   scrapyd:
     image: scrapyd
+    volumes:
+      - ./scrapyd/data:/app/scrapy
 

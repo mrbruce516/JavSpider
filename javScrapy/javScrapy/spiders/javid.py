@@ -49,7 +49,7 @@ class JavidSpider(scrapy.Spider):
         #    item[field] = eval(field)
         #yield item
         # 先清除临时文件再写入最新数据
-        with open(str(date.today())+".magent.txt", "a") as temp:
+        with open(str(date.today())+".magnet.txt", "a") as temp:
             temp.write(magnet+'\n')
 
     def parse(self, response):

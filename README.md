@@ -4,7 +4,7 @@
 
 ---
 
-目前写了爬取javbus当日的高清磁力链
+目前写了爬取javbus当日的高清磁力链，chrome为依赖，若本地无chrome，Selenium无法正常抓取ajax内容。
 
 ### 目录结构
 
@@ -42,3 +42,5 @@ cd scrapyd
 docker build -t .
 docker compose up -d
 ```
+
+若使用容器部署，需要在scrapyd目录中使用middleware.py替换项目文件中的对应文件。
