@@ -1,8 +1,7 @@
-import logging
-from datetime import date
-
 import scrapy
+import logging
 from pandas import DataFrame
+from datetime import date, timedelta
 from scrapy import Request, FormRequest
 from ..items import JavscrapyItem
 
@@ -19,6 +18,7 @@ class JavidSpider(scrapy.Spider):
 
     # 获取今天发售的最新AV
     def parse_index(self, response):
+        # today = str(date.today()+timedelta(days=-1))
         today = str(date.today())
         avdict = {}
         # 获取av发售日期
@@ -44,13 +44,13 @@ class JavidSpider(scrapy.Spider):
         # open(file='detail.html', mode='wb').write(response.body)
         magnet = response.xpath('//tr/td/a[contains(text(),"高清")]/ancestor::tr/td/a/@href').extract_first()
         # 发送至流水线模式
-        #item = JavscrapyItem()
-        #for field in item.fields:
+        # item = JavscrapyItem()
+        # for field in item.fields:
         #    item[field] = eval(field)
-        #yield item
+        # yield item
         # 先清除临时文件再写入最新数据
-        with open(str(date.today())+".magnet.txt", "a") as temp:
-            temp.write(magnet+'\n')
+        with open(str(date.today()) + ".magnet.txt", "a") as temp:
+            temp.write(magnet + '\n')
 
     def parse(self, response):
         pass
