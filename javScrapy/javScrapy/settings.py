@@ -38,7 +38,7 @@ ROBOTSTXT_OBEY = False
 # Override the default request headers:
 DEFAULT_REQUEST_HEADERS = {
     "Accept-Language": "zh-CN,zh-Hans;q=0.9",
-    "Cookie": "age=verified;PHPSESSID=nivm5b266b44pvp5u9m03lson7; existmag=mag"
+    #"Cookie": "age=verified;PHPSESSID=nivm5b266b44pvp5u9m03lson7; existmag=mag"
 }
 
 # Enable or disable spider middlewares
@@ -89,4 +89,4 @@ DOWNLOADER_MIDDLEWARES = {
 REQUEST_FINGERPRINTER_IMPLEMENTATION = "2.7"
 TWISTED_REACTOR = "twisted.internet.asyncioreactor.AsyncioSelectorReactor"
 FEED_EXPORT_ENCODING = "utf-8"
-LOG_LEVEL = 'INFO'  # 设置日志输出等级，INFO及INFO以上等级的日志会被输出（即忽略DEBUG等级日志）
+LOG_LEVEL = 'DEBUG'  # 设置日志输出等级，INFO及INFO以上等级的日志会被输出（即忽略DEBUG等级日志）
