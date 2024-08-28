@@ -9,7 +9,7 @@ from ..items import JavscrapyItem
 class JavidSpider(scrapy.Spider):
     name = "javid"
     allowed_domains = ["javbus.com"]
-    start_urls = 'https://www.javbus.com/genre/hd'
+    start_urls = 'https://www.javbus.com/page'
 
     def start_requests(self):
         for page in range(5):
@@ -19,7 +19,6 @@ class JavidSpider(scrapy.Spider):
     # 获取今天发售的最新AV
     def parse_index(self, response):
         today = str(date.today()+timedelta(days=-1))
-        #today = str(date.today())
         avdict = {}
         # 获取av发售日期
         avday = response.xpath('//div[@class="photo-info"]/span/date[2]/text()').extract()
@@ -49,8 +48,10 @@ class JavidSpider(scrapy.Spider):
         #    item[field] = eval(field)
         # yield item
         # 先清除临时文件再写入最新数据
-        with open(str(date.today()) + ".magnet.txt", "a") as temp:
-            temp.write(magnet + '\n')
+        if magnet is not None:
+            with open(str(date.today()) + ".magnet.txt", "a") as temp:
+                temp.write(magnet + '\n')
+        pass
 
     def parse(self, response):
         pass
