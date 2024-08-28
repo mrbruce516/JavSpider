@@ -114,7 +114,7 @@ class JavscrapyDownloaderMiddleware:
 class SeleniumMiddleware(object):
     def process_request(self, request, spider):
         url = request.url
-        if re.search(r'[A-Z]+-[0-9]+', url):
+        if re.search(r'[A-Z0-9]+-[0-9]+', url):
             options = webdriver.ChromeOptions()
             options.add_argument('--headless=new')
             driver = webdriver.Chrome(options=options)
