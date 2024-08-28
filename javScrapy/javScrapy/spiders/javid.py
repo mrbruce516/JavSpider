@@ -12,14 +12,14 @@ class JavidSpider(scrapy.Spider):
     start_urls = 'https://www.javbus.com/genre/hd'
 
     def start_requests(self):
-        for page in range(1):
+        for page in range(5):
             url = '{url}/{page}'.format(url=self.start_urls, page=(page + 1))
             yield FormRequest(url, callback=self.parse_index)
 
     # 获取今天发售的最新AV
     def parse_index(self, response):
-        # today = str(date.today()+timedelta(days=-1))
-        today = str(date.today())
+        today = str(date.today()+timedelta(days=-1))
+        #today = str(date.today())
         avdict = {}
         # 获取av发售日期
         avday = response.xpath('//div[@class="photo-info"]/span/date[2]/text()').extract()
