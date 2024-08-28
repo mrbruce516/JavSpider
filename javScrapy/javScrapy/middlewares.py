@@ -116,7 +116,11 @@ class SeleniumMiddleware(object):
         url = request.url
         if re.search(r'[A-Z0-9]+-[0-9]+', url):
             options = webdriver.ChromeOptions()
-            options.add_argument('--headless=new')
+            options.add_argument('--headless=new') # 无头模式打开
+            options.add_argument("--no-sandbox")   # 容器优化
+            options.add_argument('--disable-gpu')  # 容器优化
+            options.add_argument("--disable-dev-shm-usage") # 容器优化
+            options.add_argument("--accept-lang=zh-CN")
             driver = webdriver.Chrome(options=options)
             driver.get(url)
             time.sleep(3)
