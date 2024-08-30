@@ -8,5 +8,7 @@ import scrapy
 
 class JavscrapyItem(scrapy.Item):
     # define the fields for your item here like:
-    # name = scrapy.Field()
+    carid = scrapy.Field()
+    actor = scrapy.Field()
+    category = scrapy.Field()
     magnet = scrapy.Field()

@@ -35,12 +35,13 @@ class JavidSpider(scrapy.Spider):
 
     def parse_magnet(self, response):
         # open(file='detail.html', mode='wb').write(response.body)
+        carid = response.xpath('/html/body/div[5]/div[1]/div[2]/p[1]/span[2]').extract_first()
         magnet = response.xpath('//tr/td/a[contains(text(),"高清")]/ancestor::tr/td/a/@href').extract_first()
         # 发送至流水线模式
-        # item = JavscrapyItem()
-        # for field in item.fields:
-        #    item[field] = eval(field)
-        # yield item
+        item = JavscrapyItem()
+        for field in item.fields:
+           item[field] = eval(field)
+        yield item
         # 先清除临时文件再写入最新数据
         if magnet is not None:
             with open(str(date.today()) + ".magnet.txt", "a") as temp:
