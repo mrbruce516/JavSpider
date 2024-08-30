@@ -12,9 +12,10 @@ class JavscrapyPipeline:
     def open_spider(self, spider):
         # 打开数据库连接
         self.connection = pymysql.connect(
+            #host='db',
             host='localhost',
             user='root',
-            password='zc990516',
+            password='scrapy',
             database='scrapy',
             charset='utf8mb4',
             cursorclass=pymysql.cursors.DictCursor

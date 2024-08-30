@@ -19,6 +19,7 @@ class JavidSpider(scrapy.Spider):
     # 获取今天发售的最新AV
     def parse_index(self, response):
         today = str(date.today()+timedelta(days=-1))
+        #today='2024-08-27'
         avdict = {}
         # 获取av发售日期
         avday = response.xpath('//div[@class="photo-info"]/span/date[2]/text()').extract()
