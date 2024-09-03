@@ -12,14 +12,14 @@ class JavidSpider(scrapy.Spider):
     start_urls = 'https://www.javbus.com/page'
 
     def start_requests(self):
-        for page in range(5):
+        for page in range(10):
             url = '{url}/{page}'.format(url=self.start_urls, page=(page + 1))
             yield FormRequest(url, callback=self.parse_index)
 
     # 获取今天发售的最新AV
     def parse_index(self, response):
-        today = str(date.today()+timedelta(days=-1))
-        #today='2024-08-27'
+        #today = str(date.today()+timedelta(days=-1))
+        today='2024-08-27'
         avdict = {}
         # 获取av发售日期
         avday = response.xpath('//div[@class="photo-info"]/span/date[2]/text()').extract()
@@ -57,6 +57,8 @@ class JavidSpider(scrapy.Spider):
             with open(str(date.today()) + ".magnet.txt", "a") as temp:
                 temp.write(magnet + '\n')
         pass
+
+    # TODO: 调用aria2下载，并且修改数据库状态为1
 
     def parse(self, response):
         pass
