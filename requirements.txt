@@ -1,2 +1,0 @@
-Scrapy==2.11.2
-selenium==4.24.0
