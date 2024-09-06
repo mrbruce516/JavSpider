@@ -24,3 +24,5 @@ services:
       - "3306:3306"
     environment:
       MYSQL_ROOT_PASSWORD: "scrapy"
+      LANG: "C.UTF-8"
+      TZ: "Asia/Shanghai"

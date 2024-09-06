@@ -2,13 +2,7 @@
 #
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-
-
-# useful for handling different item types with a single interface
-from itemadapter import ItemAdapter
-import pymysql
-from twisted.python.win32 import quoteArguments
-
+import logging
 from .database import DBConnection
 
 
@@ -21,8 +15,19 @@ class JavscrapyPipeline:
             file.write(item_string+'\n')
         # 写入数据库
         db = DBConnection(host='localhost')
-        sql = "INSERT INTO javscrapy VALUES (UUID(), %s, %s, %s, %s, '0')"
-        values = (item['carid'],item['actor'], item['category'], item['magnet'])
-        db.execute(sql, values)
+        sql = "INSERT INTO javscrapy VALUES (UUID(), %s, %s, %s, %s, %s, '0')"
+        values = (item['carid'], item['actor'], item['category'], item['releaseDate'], item['magnet'])
+        check_sql = "SELECT * FROM javscrapy WHERE carid = %s"
+        update_sql = "UPDATE javscrapy SET magnet = %s,status = 0 WHERE carid = %s"
+        update_values = (item['magnet'], item['carid'])
+        result = db.execute(check_sql, item['carid'])
+        if not result:
+            db.execute(sql, values)
+            logging.debug("数据新增成功")
+        elif result[0]['carid'] == item['carid'] and result[0]['magnet'] != item['magnet']:
+            db.execute(update_sql, update_values)
+            logging.debug("数据更新成功")
+        else:
+            logging.debug("数据已存在，跳过")
         db.disconnect()
         return item
