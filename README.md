@@ -1,10 +1,10 @@
-# 个人Scrapy爬虫存档
+# JavSpider - 爬取Javbus磁力链
 
 `Scrapy` `Selenium` `Gerapy`
 
 ---
 
-目前写了爬取javbus当日的高清磁力链，chrome为依赖，若本地无chrome，Selenium无法正常抓取ajax内容。
+chrome为依赖，若本地无chrome，Selenium无法正常抓取ajax内容。
 
 ### 目录结构
 
