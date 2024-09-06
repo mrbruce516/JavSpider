@@ -8,14 +8,6 @@ import time
 from scrapy import signals
 from scrapy.http import HtmlResponse
 from selenium import webdriver
-from selenium.common import TimeoutException
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-
-# useful for handling different item types with a single interface
-from itemadapter import is_item, ItemAdapter
-
 
 class JavscrapySpiderMiddleware:
     # Not all methods need to be defined. If a method is not defined,
