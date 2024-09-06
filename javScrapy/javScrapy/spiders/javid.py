@@ -1,7 +1,5 @@
 import scrapy
-import logging
-from pandas import DataFrame
-from datetime import date, timedelta
+from datetime import date
 from scrapy import Request, FormRequest
 from ..items import JavscrapyItem
 
@@ -9,35 +7,22 @@ from ..items import JavscrapyItem
 class JavidSpider(scrapy.Spider):
     name = "javid"
     allowed_domains = ["javbus.com"]
-    start_urls = 'https://www.javbus.com/page'
+    start_urls = 'https://www.javbus.com/genre/sub'
 
     def start_requests(self):
-        for page in range(10):
+        for page in range(1):
             url = '{url}/{page}'.format(url=self.start_urls, page=(page + 1))
             yield FormRequest(url, callback=self.parse_index)
 
-    # 获取今天发售的最新AV
+    # 获取当前页所有av
     def parse_index(self, response):
-        #today = str(date.today()+timedelta(days=-1))
-        today='2024-08-27'
-        avdict = {}
-        # 获取av发售日期
-        avday = response.xpath('//div[@class="photo-info"]/span/date[2]/text()').extract()
-        if today not in avday:
-            logging.info('今日无新种，养生！')
+        avarray = []
         # 获取av链接
         av = response.xpath('//a[@class="movie-box"]/@href').extract()
-        when = 0
-        # 把av和对应的发售日期写入字典
-        for create in av:
-            avdict[create] = avday[when]
-            when += 1
-        # 获取当天的av，用pd筛选后写入list
-        data = DataFrame([avdict.keys(), avdict.values()]).T
-        data.rename(columns={0: 'site', 1: 'day'}, inplace=True)
-        selectav = data.where(data['day'] == today).dropna(axis=0, how='all')
-        avlist = selectav['site'].values.tolist()
-        for url in avlist:
+        # 把所有av写入数组
+        for link in av:
+            avarray.append(link)
+        for url in avarray:
             yield Request(url, callback=self.parse_magnet)
 
     def parse_magnet(self, response):
@@ -46,7 +31,8 @@ class JavidSpider(scrapy.Spider):
         actor = response.xpath('//span[@class="genre"]/a/text()').extract_first()
         category_array = response.xpath('//span[@class="genre"]/label/a/text()').getall()
         category = ",".join(map(str, category_array))
-        magnet = response.xpath('//tr/td/a[contains(text(),"高清")]/ancestor::tr/td/a/@href').extract_first()
+        releaseDate = response.xpath('//div/p[2]/text()').extract_first()
+        magnet = response.xpath('//tr[td/a[contains(text(),"高清")]][td/a[contains(text(),"字幕")]]/td/a/@href').extract_first()
         # 发送至流水线模式
         item = JavscrapyItem()
         for field in item.fields:

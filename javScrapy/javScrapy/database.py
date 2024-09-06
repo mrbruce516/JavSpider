@@ -1,3 +1,4 @@
+import logging
 import pymysql
 from pymysql import cursors
 
@@ -36,9 +37,10 @@ class DBConnection:
             with conn.cursor() as cursor:
                 cursor.execute(sql, values)
                 result = cursor.fetchall()
-            conn.commit()
+            if "select" not in sql.lower():
+                conn.commit()
             return result
         except Exception as e:
             conn.rollback()
-            print(f"意料之外的sql执行: {e}")
+            logging.warning(f"意料之外的sql执行: {e}")
             return None

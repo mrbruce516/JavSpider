@@ -11,4 +11,5 @@ class JavscrapyItem(scrapy.Item):
     carid = scrapy.Field()
     actor = scrapy.Field()
     category = scrapy.Field()
+    releaseDate = scrapy.Field()
     magnet = scrapy.Field()
