@@ -6,3 +6,4 @@ __pycache__
 .txt
 scrapyd/gerapy/
 scrapyd/scrapyd/
+scrapyd/db
