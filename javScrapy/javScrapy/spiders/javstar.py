@@ -1,6 +1,4 @@
 import scrapy
-import logging
-from pandas import DataFrame
 from datetime import date, timedelta
 from scrapy import Request, FormRequest
 from ..items import JavscrapyItem
