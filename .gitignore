@@ -4,6 +4,6 @@ __pycache__
 .idea
 .DS_Store
 .txt
-scrapyd/gerapy/
-scrapyd/scrapyd/
-scrapyd/db
+docker/gerapy/
+docker/scrapyd/
+docker/db

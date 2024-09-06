@@ -13,7 +13,7 @@ services:
   scrapyd:
     image: scrapyd
     volumes:
-      - ./scrapyd/data:/app/scrapy
+      - ./docker/data:/app/scrapy
 
   db:
     image: mysql:lts
