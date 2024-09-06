@@ -1,5 +1,4 @@
 import scrapy
-from datetime import date
 from scrapy import Request, FormRequest
 from ..items import JavscrapyItem
 
@@ -8,6 +7,7 @@ class JavidSpider(scrapy.Spider):
     name = "javid"
     allowed_domains = ["javbus.com"]
     start_urls = 'https://www.javbus.com/genre/sub'
+    #start_urls = 'https://www.javbus.com/star/okq/7'
 
     def start_requests(self):
         for page in range(1):
@@ -38,13 +38,7 @@ class JavidSpider(scrapy.Spider):
         for field in item.fields:
            item[field] = eval(field)
         yield item
-        # 先清除临时文件再写入最新数据
-        if magnet is not None:
-            with open(str(date.today()) + ".magnet.txt", "a") as temp:
-                temp.write(magnet + '\n')
-        pass
 
-    # TODO: 调用aria2下载，并且修改数据库状态为1
 
     def parse(self, response):
         pass
