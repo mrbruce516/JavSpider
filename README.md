@@ -6,6 +6,10 @@
 
 chrome为依赖，若本地无chrome，Selenium无法正常抓取ajax内容。
 
+### TODO
+1. 废弃scrapyd，直接通过系统cron调度docker。
+2. aria2下载完成后回调数据库，修改下载状态。
+
 ### 目录结构
 
 | 目录        | 备注            |
